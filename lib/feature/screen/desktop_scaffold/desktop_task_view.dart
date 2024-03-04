@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/feature/entity/todo_model.dart';
-import 'package:to_do/feature/store/to_do_store.dart';
+import 'package:to_do/feature/entity/task_model.dart';
+import 'package:to_do/feature/store/task_store.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -12,12 +12,12 @@ class DesktopTaskView extends StatefulWidget {
 }
 
 class _DesktopTaskViewState extends State<DesktopTaskView> {
-  ToDoStore store = ToDoStore();
+  TaskStore store = TaskStore();
 
   @override
   void didChangeDependencies() async {
-    store = Provider.of<ToDoStore>(context, listen: false);
-    await store.getToDo();
+    store = Provider.of<TaskStore>(context, listen: false);
+    await store.getTask();
     super.didChangeDependencies();
   }
 
@@ -55,7 +55,7 @@ class _DesktopTaskViewState extends State<DesktopTaskView> {
               //     priority: "High",
               //     status: "");
               // await store.createTask(todoModel);
-              // await store.getToDo();
+              // await store.getTask();
             },
             child: const Text("Add task"),
           ),
@@ -75,7 +75,7 @@ class _DesktopTaskViewState extends State<DesktopTaskView> {
     return InkWell(
       onTap: ()async{
         await store.deleteAllTask();
-        await store.getToDo();
+        await store.getTask();
       },
       child: const Text("Clear"),
     );

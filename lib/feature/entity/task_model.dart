@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'todo_model.g.dart';
+part 'task_model.g.dart';
 
 @JsonSerializable()
-class TodoModel{
- TodoModel( {this.id,
+class TaskModel{
+ TaskModel( {this.id,
   this.title,
   this.description,
   this.status,
@@ -20,10 +20,10 @@ class TodoModel{
  @JsonKey(name: 'priority')
  String? priority;
 
- factory TodoModel.fromJson(Map<String, dynamic> json) =>
-     _$TodoModelFromJson(json);
+ factory TaskModel.fromJson(Map<String, dynamic> json) =>
+     _$TaskModelFromJson(json);
 
- Map<String, dynamic> toJson() => _$TodoModelToJson(this);
+ Map<String, dynamic> toJson() => _$TaskModelToJson(this);
 
 
 }

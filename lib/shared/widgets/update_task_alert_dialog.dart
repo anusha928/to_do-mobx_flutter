@@ -6,23 +6,31 @@ import 'package:to_do/feature/store/task_store.dart';
 import 'package:to_do/shared/constants/color_constants.dart';
 import 'package:to_do/shared/show_snackbar.dart';
 import 'package:to_do/shared/text_field.dart';
-import 'package:uuid/uuid.dart';
 
-class AddTaskAlertDialog extends StatefulWidget {
+class UpdateTaskAlertDialog extends StatefulWidget {
   String? title;
   String? description;
-   AddTaskAlertDialog({super.key,this.title,this.description});
+  String? id;
+
+  UpdateTaskAlertDialog({super.key, this.title, this.description, this.id});
 
   @override
-  State<AddTaskAlertDialog> createState() => _AddTaskAlertDialogState();
+  State<UpdateTaskAlertDialog> createState() => _UpdateTaskAlertDialogState();
 }
 
-class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
+class _UpdateTaskAlertDialogState extends State<UpdateTaskAlertDialog> {
   TextEditingController titleController = TextEditingController();
   TextEditingController desController = TextEditingController();
   TaskStore store = TaskStore();
   double height = 0.0;
   double width = 0.0;
+
+  @override
+  void initState() {
+    titleController.text = widget.title ?? "";
+    desController.text = widget.description ?? "";
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -37,7 +45,7 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
     return AlertDialog(
       scrollable: true,
       title: const Text(
-        'New Task',
+        'Update Task',
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: 18,
@@ -78,32 +86,35 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
               )),
         ),
         InkWell(
-          onTap: (){ createAddTask();},
+          onTap: () {
+            createUpdateTask();
+          },
           child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: AppColors.primaryColor),
               child: const Text(
-                "Add Task",
+                "Save Update",
                 style: TextStyle(color: Colors.white),
               )),
         ),
       ],
     );
   }
-  createAddTask()async{
-    if(titleController.text.isNotEmpty || desController.text.isNotEmpty){
-      String randomId = const Uuid().v4();
+
+  createUpdateTask() async {
+    if (titleController.text.isNotEmpty || desController.text.isNotEmpty) {
       TaskModel taskModel = TaskModel(
-          id: randomId,
+          id: widget.id,
           title: titleController.text,
           description: desController.text);
-    var add =await  store.createTask(taskModel);
-    add.fold((l) {
-      showSnackBar(l.toString(), context);
-    }, (r) =>  showSnackBar("Task updated Successfully", context));
+      final update = await store.updateTask(taskModel);
+      update.fold((l) {
+        print(l.toString());
+        showSnackBar(l.toString(), context);
+      }, (r) => showSnackBar("Task updated Successfully", context));
       Navigator.pop(context);
     }
-    }
+  }
 }

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todo_model.dart';
+part of 'task_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
+TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
       id: json['id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -14,7 +14,7 @@ TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
       priority: json['priority'] as String?,
     );
 
-Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
+Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:to_do/feature/entity/todo_model.dart';
+import 'package:to_do/feature/entity/task_model.dart';
 abstract class Response {
   static String defaultErrorMessage = "Internal Server Error";
 
@@ -20,7 +20,7 @@ abstract class Response {
 class TodoResponse extends Response{
   bool hasError;
   String? errorMessage;
-  TodoModel? response;
+  TaskModel? response;
 
   TodoResponse({
     this.hasError = false,

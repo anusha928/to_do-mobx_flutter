@@ -22,7 +22,7 @@ class CommonTextfield extends StatelessWidget {
             vertical: 20,
           ),
           hintText: hintText,
-          hintStyle: const TextStyle(fontSize: 14),
+          hintStyle: const TextStyle(fontSize: 14,color: Colors.grey),
           icon:icon ,
 
           border: OutlineInputBorder(
